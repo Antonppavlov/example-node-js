@@ -1,14 +1,18 @@
+var http = require('http');
 var fs = require('fs');
 
-//Создание папки и запись в файл
-fs.mkdir('new-one-dir', function() {
-    fs.writeFile('new-one-dir/text.txt','Привет мир!',function() {
-        console.log('Создание папки и запись в файл прошли успешно!!!');
-    })
+
+var server = http.createServer(function (request,response) {
+
+    console.log(`URL по которому быз запрос: ${request.url}`);
+
+    response.writeHead(200,
+      {'Content-Type': 'text/plain; charset=utf-8'}
+    )
+
+    response.end(fs.readFileSync('new-one-dir/text.txt','utf8'));
 });
 
-//Удаление файла
-// fs.unlinkSync('new-one-dir/text.txt');
 
-//Удаление директории
-// fs.rmdirSync('new-one-dir');
+server.listen(3000, '127.0.0.1');
+console.log('Занял адрес 127.0.0.1:3000');
