@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>News html</title>
+</head>
+<body>
+<H1>Это страница News и ее ID: <%= newsId %></H1>
+<P>Name : <%= obj.name %></P>
+<P>Age : <%= obj.age %></P>
+<ul>
+<% obj.array.forEach(function(item) { %>
+<li><%= item %></li>
+<% }); %>
+</ul>
+</body>
+</html>
