@@ -1,12 +1,29 @@
-const fs = require('fs');
-const http = require('http');
+var express = require('express');
 
-var server = http.createServer(function(require,response) {
-  response.writeHead(200,{'Content-Type':'aplication/json; charset=utf-8'});
-  var obj = {model:"Audi", age: 1988, max_speed: 255};
+var app = express();
+const port = 3000;
 
-  response.end(JSON.stringify(obj));
-})
+app.listen(port);
+app.set('view engine', 'ejs');
 
-server.listen(3000,'127.0.0.1');
-console.log("Сайт запущен по адрессу: 127.0.0.1:3000");
+app.get("/", function (request,respons) {
+  respons.sendFile(__dirname + '/html/index.html');
+});
+
+app.get("/about", function (request,respons) {
+  respons.sendFile(__dirname + '/html/about.html');
+});
+
+app.get("/news/:id", function (request,respons) {
+  let obj = {
+          name: 'Anton',
+          age: 29,
+          array: ['зачем','я','этим','занимаюсь']};
+
+
+  respons.render('news',{newsId : request.params.id, obj:obj});
+
+
+});
+
+console.log(`Запущен сервер локально, port: ${port}`);
