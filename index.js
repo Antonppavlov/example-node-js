@@ -2,9 +2,10 @@ const fs = require('fs');
 const http = require('http');
 
 var server = http.createServer(function(require,response) {
-  response.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});
-  var myReadShort = fs.createReadStream('html/index.html','utf8');
-  myReadShort.pipe(response)
+  response.writeHead(200,{'Content-Type':'aplication/json; charset=utf-8'});
+  var obj = {model:"Audi", age: 1988, max_speed: 255};
+
+  response.end(JSON.stringify(obj));
 })
 
 server.listen(3000,'127.0.0.1');
