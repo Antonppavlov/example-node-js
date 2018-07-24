@@ -1,25 +1,20 @@
-const fs = require('fs');
-const http = require('http');
+var express = require('express');
 
-const url = "127.0.0.1";
+var app = express();
 const port = 3000;
 
-var server = http.createServer(function(require,response) {
-  response.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});
+app.listen(port);
 
-  if(require.url === "/index" || require.url === "/"){
-    fs.createReadStream(__dirname + '/html/index.html')
-    .pipe(response);
-  }else if(require.url === "/about"){
-    fs.createReadStream(__dirname + '/html/about.html')
-    .pipe(response);
-  }
-  else {
-      fs.createReadStream(__dirname + '/html/404.html')
-      .pipe(response);
-  }
+app.get("/", function (request,respons) {
+  respons.send('This is home');
+});
 
-})
+app.get("/news", function (request,respons) {
+  respons.send('This is news');
+});
 
-server.listen(port,url);
-console.log(`Запущен сервер по адресу: ${url}:${port}`);
+app.get("/news/:name/:id", function (request,respons) {
+  respons.send(`Name is:${request.params.name}, Id is: ${request.params.id}`);
+});
+
+console.log(`Запущен сервер локально, port: ${port}`);
