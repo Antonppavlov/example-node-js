@@ -4,14 +4,15 @@ var app = express();
 const port = 3000;
 
 app.listen(port);
+app.use('/public', express.static('public'));
 app.set('view engine', 'ejs');
 
 app.get("/", function (request,respons) {
-  respons.sendFile(__dirname + '/html/index.html');
+  respons.render('index');
 });
 
 app.get("/about", function (request,respons) {
-  respons.sendFile(__dirname + '/html/about.html');
+  respons.render('about');
 });
 
 app.get("/news/:id", function (request,respons) {
